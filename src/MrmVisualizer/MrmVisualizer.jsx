@@ -10,11 +10,11 @@ export default class MrmVisualizer extends Component {
 
     render() {
         return (
-            <> 
+            <>
             <div> 
-                Helloasdfsasd
+                hello
             </div> 
-            </> 
+            </>
         );
     }
 }
