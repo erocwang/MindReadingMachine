@@ -12,7 +12,7 @@ export default class MrmVisualizer extends Component {
         return (
             <> 
             <div> 
-                Helloasdfs
+                Helloasdfsasd
             </div> 
             </> 
         );
