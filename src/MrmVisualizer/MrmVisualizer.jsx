@@ -15,14 +15,23 @@ export default class MrmVisualizer extends Component {
     componentDidMount() {
         const historyMap = new Map(); 
         historyMap.set(1,new Map(new Map())); 
+        historyMap.get(1).set("est", new Map());
+        historyMap.get(1).get("est").set(0,0);
+        historyMap.get(1).get("est").set(1,0);
         historyMap.set(2,new Map(new Map())); 
-        historyMap.set(3,new Map(new Map()));  
+        historyMap.get(2).set("est",new Map());
+        historyMap.get(2).get("est").set(0,0);
+        historyMap.get(2).get("est").set(1,0);
+        historyMap.set(3,new Map(new Map()));
+        historyMap.get(3).set("est",new Map());  
+        historyMap.get(3).get("est").set(0,0);
+        historyMap.get(3).get("est").set(1,0);
         this.setState({historyMap});
     }
 
     guess0() {
         const {userCorrect,userIncorrect,userHistory,historyMap} = this.state; 
-        const botGuess = getBotGuess(userHistory,historyMap);
+        const botGuess = getBotGuess(0,userHistory,historyMap);
         const [newuserCorrect,newuserIncorrect] = updateGuesses(0,botGuess,userCorrect,userIncorrect); 
         const newuserHistory = updateHistory(0,userHistory);
         const newhistoryMap = updateMap(newuserHistory,historyMap); 
@@ -31,7 +40,7 @@ export default class MrmVisualizer extends Component {
 
     guess1() {
         const {userCorrect,userIncorrect,userHistory,historyMap} = this.state; 
-        const botGuess = getBotGuess(userHistory,historyMap);
+        const botGuess = getBotGuess(1,userHistory,historyMap);
         const [newuserCorrect,newuserIncorrect] = updateGuesses(1,botGuess,userCorrect,userIncorrect); 
         const newuserHistory = updateHistory(1,userHistory);
         const newhistoryMap = updateMap(newuserHistory,historyMap); 
@@ -81,7 +90,7 @@ const updateMap = (userHistory,historyMap) => {
             if(!historyMap.get(userHistory.length-1-i).has(userHistory.substring(i,userHistory.length-1))) {
                 historyMap.get(userHistory.length-1-i).set(userHistory.substring(i,userHistory.length-1),new Map());
                 historyMap.get(userHistory.length-1-i).get(userHistory.substring(i,userHistory.length-1)).set(0,0);
-                historyMap.get(userHistory.length-1-i).get(userHistory.substring(i,userHistory.length-1)).set(1,0);                
+                historyMap.get(userHistory.length-1-i).get(userHistory.substring(i,userHistory.length-1)).set(1,0);               
             }
             cur = historyMap.get(userHistory.length-1-i).get(userHistory.substring(i,userHistory.length-1)).get(0);
             historyMap.get(userHistory.length-1-i).get(userHistory.substring(i,userHistory.length-1)).set(0,cur+1); 
@@ -92,7 +101,7 @@ const updateMap = (userHistory,historyMap) => {
             if(!historyMap.get(userHistory.length-1-i).has(userHistory.substring(i,userHistory.length-1))) {
                 historyMap.get(userHistory.length-1-i).set(userHistory.substring(i,userHistory.length-1),new Map());
                 historyMap.get(userHistory.length-1-i).get(userHistory.substring(i,userHistory.length-1)).set(0,0);
-                historyMap.get(userHistory.length-1-i).get(userHistory.substring(i,userHistory.length-1)).set(1,0);                
+                historyMap.get(userHistory.length-1-i).get(userHistory.substring(i,userHistory.length-1)).set(1,0);          
             }
             cur = historyMap.get(userHistory.length-1-i).get(userHistory.substring(i,userHistory.length-1)).get(1);
             historyMap.get(userHistory.length-1-i).get(userHistory.substring(i,userHistory.length-1)).set(1,cur+1); 
