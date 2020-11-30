@@ -14,7 +14,7 @@ function getGuessFromHistory(userGuess,userHistory,historyMap) {
         botGuess = !parseInt(userHistory[0]);
     }
     else {
-        for(let i=userHistory.length-1; i>=Math.max(0,userHistory.length-3); i--) {
+        for(let i=userHistory.length-1; i>=Math.max(0,userHistory.length-5); i--) {
             var curGuess = Math.round(Math.random()); 
             if(historyMap.get(userHistory.length-i).has(userHistory.substring(i,userHistory.length))) {
                 var zeros = historyMap.get(userHistory.length-i).get(userHistory.substring(i,userHistory.length)).get(0); 

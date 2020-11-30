@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {getBotGuess} from './MrmAlgo';
+import './MrmVisualizer.css';
 
 export default class MrmVisualizer extends Component {
     constructor() {
@@ -26,6 +27,14 @@ export default class MrmVisualizer extends Component {
         historyMap.get(3).set("est",new Map());  
         historyMap.get(3).get("est").set(0,0);
         historyMap.get(3).get("est").set(1,0);
+        historyMap.set(4,new Map(new Map()));
+        historyMap.get(4).set("est",new Map());  
+        historyMap.get(4).get("est").set(0,0);
+        historyMap.get(4).get("est").set(1,0);
+        historyMap.set(5,new Map(new Map()));
+        historyMap.get(5).set("est",new Map());  
+        historyMap.get(5).get("est").set(0,0);
+        historyMap.get(5).get("est").set(1,0);
         this.setState({historyMap});
     }
 
@@ -51,6 +60,34 @@ export default class MrmVisualizer extends Component {
         const {userCorrect,userIncorrect} = this.state; 
         return (
             <>
+            <div className="row-container"> 
+                <div className="black-box">
+                </div>
+                <div className="white-box">
+                </div>
+                <div className="black-box">
+                </div>
+                <div className="white-box">
+                </div>
+            </div>
+            <div className="row-container"> 
+                <div className="white-box">
+                </div>
+                <div className="black-box">
+                </div>
+                <div className="white-box">
+                </div>
+                <div className="black-box">
+                </div>
+            </div>
+            <div className = "bar-container"> 
+                <div className = "correct-bar"
+                    style = {{height: `${userCorrect}px`}}
+                ></div> 
+                <div className = "incorrect-bar"
+                    style = {{height: `${userIncorrect}px`}}
+                ></div> 
+            </div>
             <div> 
                 userCorrect: {userCorrect} 
             </div> 
@@ -86,7 +123,7 @@ const updateHistory = (userGuess,userHistory) => {
 const updateMap = (userHistory,historyMap) => {
     var cur = 0; 
     if(userHistory[userHistory.length-1]==="0") {
-        for(let i=userHistory.length-2; i>=Math.max(0,userHistory.length-4); i--) {
+        for(let i=userHistory.length-2; i>=Math.max(0,userHistory.length-6); i--) {
             if(!historyMap.get(userHistory.length-1-i).has(userHistory.substring(i,userHistory.length-1))) {
                 historyMap.get(userHistory.length-1-i).set(userHistory.substring(i,userHistory.length-1),new Map());
                 historyMap.get(userHistory.length-1-i).get(userHistory.substring(i,userHistory.length-1)).set(0,0);
@@ -97,7 +134,7 @@ const updateMap = (userHistory,historyMap) => {
         }
     }
     else {
-        for(let i=userHistory.length-2; i>=Math.max(0,userHistory.length-4); i--) {
+        for(let i=userHistory.length-2; i>=Math.max(0,userHistory.length-6); i--) {
             if(!historyMap.get(userHistory.length-1-i).has(userHistory.substring(i,userHistory.length-1))) {
                 historyMap.get(userHistory.length-1-i).set(userHistory.substring(i,userHistory.length-1),new Map());
                 historyMap.get(userHistory.length-1-i).get(userHistory.substring(i,userHistory.length-1)).set(0,0);
