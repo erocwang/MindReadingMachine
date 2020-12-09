@@ -15,6 +15,7 @@ export default class MrmVisualizer extends Component {
     }
 
     componentDidMount() {
+        document.body.style.backgroundColor = "beige";
         const historyMap = new Map(); 
         historyMap.set(1,new Map(new Map())); 
         historyMap.get(1).set("est", new Map());

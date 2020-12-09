@@ -25,13 +25,13 @@ function getGuessFromHistory(userGuess,userHistory,historyMap) {
                 else {
                     curGuess = 1; 
                 }
+                if(historyMap.get(userHistory.length-i).get("est").get(0)/Math.max(1,historyMap.get(userHistory.length-i).get("est").get(1)) > top) {
+                    top = historyMap.get(userHistory.length-i).get("est").get(0)/Math.max(1,historyMap.get(userHistory.length-i).get("est").get(1)); 
+                    botGuess = curGuess; 
+                }
+                if(curGuess===userGuess) historyMap.get(userHistory.length-i).get("est").set(0,historyMap.get(userHistory.length-i).get("est").get(0)+1);
+                historyMap.get(userHistory.length-i).get("est").set(1,historyMap.get(userHistory.length-i).get("est").get(1)+1); 
             }
-            if(historyMap.get(userHistory.length-i).get("est").get(0)/Math.max(1,historyMap.get(userHistory.length-i).get("est").get(1)) > top) {
-                top = historyMap.get(userHistory.length-i).get("est").get(0)/Math.max(1,historyMap.get(userHistory.length-i).get("est").get(1)); 
-                botGuess = curGuess; 
-            }
-            if(curGuess===userGuess) historyMap.get(userHistory.length-i).get("est").set(0,historyMap.get(userHistory.length-i).get("est").get(0)+1);
-            historyMap.get(userHistory.length-i).get("est").set(1,historyMap.get(userHistory.length-i).get("est").get(1)+1); 
         }
     }
     return botGuess; 
