@@ -9,7 +9,8 @@ export default class MrmVisualizer extends Component {
             userCorrect: 0, 
             userIncorrect: 0, 
             userHistory: "", 
-            historyMap : new Map(),
+            historyMap: new Map(),
+            showResult: 0, 
         };
     }
 
@@ -45,6 +46,9 @@ export default class MrmVisualizer extends Component {
         const newuserHistory = updateHistory(0,userHistory);
         const newhistoryMap = updateMap(newuserHistory,historyMap); 
         this.setState({userCorrect:newuserCorrect,userIncorrect:newuserIncorrect,userHistory:newuserHistory,historyMap:newhistoryMap}); 
+        if(newuserCorrect>newuserIncorrect) document.getElementById("text").innerHTML = "You win!";
+        else document.getElementById("text").innerHTML = "You lose!";
+        if(newuserCorrect === 30 || newuserIncorrect === 30) this.setState({showResult: 1});
     }
 
     guess1() {
@@ -54,10 +58,13 @@ export default class MrmVisualizer extends Component {
         const newuserHistory = updateHistory(1,userHistory);
         const newhistoryMap = updateMap(newuserHistory,historyMap); 
         this.setState({userCorrect:newuserCorrect,userIncorrect:newuserIncorrect,userHistory:newuserHistory,historyMap:newhistoryMap});  
+        if(newuserCorrect>newuserIncorrect) document.getElementById("text").innerHTML = "You win!";
+        else document.getElementById("text").innerHTML = "You lose!";
+        if(newuserCorrect === 30 || newuserIncorrect === 30) this.setState({showResult: 1});
     }
 
     render() {
-        const {userCorrect,userIncorrect} = this.state; 
+        const {userCorrect,userIncorrect,showResult} = this.state; 
         return (
             <>
             <div className="row-container"> 
@@ -82,10 +89,10 @@ export default class MrmVisualizer extends Component {
             </div>
             <div className = "bar-container"> 
                 <div className = "correct-bar"
-                    style = {{height: `${userCorrect}px`}}
+                    style = {{height: `${userCorrect*2}px`}}
                 ></div> 
                 <div className = "incorrect-bar"
-                    style = {{height: `${userIncorrect}px`}}
+                    style = {{height: `${userIncorrect*2}px`}}
                 ></div> 
             </div>
             <div> 
@@ -100,6 +107,9 @@ export default class MrmVisualizer extends Component {
             <button onClick={() => this.guess1()}>
                 Guess 1
             </button>
+            <div className = "result" style = {{visibility: showResult ? `visible` : `hidden`}} >
+                <p id="text"> </p> 
+            </div> 
             </>
         );
     }

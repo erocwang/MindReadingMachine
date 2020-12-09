@@ -19,21 +19,16 @@ function getGuessFromHistory(userGuess,userHistory,historyMap) {
             if(historyMap.get(userHistory.length-i).has(userHistory.substring(i,userHistory.length))) {
                 var zeros = historyMap.get(userHistory.length-i).get(userHistory.substring(i,userHistory.length)).get(0); 
                 var ones = historyMap.get(userHistory.length-i).get(userHistory.substring(i,userHistory.length)).get(1);
+                if(zeros > ones) {
+                    curGuess = 0; 
+                }
+                else {
+                    curGuess = 1; 
+                }
             }
             if(historyMap.get(userHistory.length-i).get("est").get(0)/Math.max(1,historyMap.get(userHistory.length-i).get("est").get(1)) > top) {
                 top = historyMap.get(userHistory.length-i).get("est").get(0)/Math.max(1,historyMap.get(userHistory.length-i).get("est").get(1)); 
-                if(zeros > ones) {
-                    botGuess = 0; 
-                    curGuess = 0; 
-                }
-                else if(ones > zeros) {
-                    botGuess = 1; 
-                    curGuess = 1; 
-                }
-                else {
-                    botGuess = Math.round(Math.random());
-                    curGuess = Math.round(Math.random()); 
-                }
+                botGuess = curGuess; 
             }
             if(curGuess===userGuess) historyMap.get(userHistory.length-i).get("est").set(0,historyMap.get(userHistory.length-i).get("est").get(0)+1);
             historyMap.get(userHistory.length-i).get("est").set(1,historyMap.get(userHistory.length-i).get("est").get(1)+1); 

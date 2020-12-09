@@ -26,7 +26,7 @@
 .bar-container {
     margin: auto; 
     position: relative; 
-    height: 100px; 
+    height: 60px; 
     width: 40px; 
 }
 
@@ -46,4 +46,11 @@
     position: absolute; 
     bottom: 0;
     right: 0;
+}
+
+.result {
+    background-color: white; 
+    height: 200px; 
+    width: 200px; 
+    margin: auto; 
 }
