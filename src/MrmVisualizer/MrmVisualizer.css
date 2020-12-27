@@ -48,8 +48,15 @@
     right: 0;
 }
 
+.text-container {
+    display: block; 
+    background-color: grey; 
+    color: white; 
+}
+
 .result {
-    background-color: white; 
+    background-color: grey;
+    color: white;  
     height: 200px; 
     width: 200px; 
     margin: auto; 

@@ -3,8 +3,8 @@ import {getBotGuess} from './MrmAlgo';
 import './MrmVisualizer.css';
 
 export default class MrmVisualizer extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             userCorrect: 0, 
             userIncorrect: 0, 
@@ -15,7 +15,7 @@ export default class MrmVisualizer extends Component {
     }
 
     componentDidMount() {
-        document.body.style.backgroundColor = "beige";
+        document.body.style.backgroundColor = "grey"; 
         const historyMap = new Map(); 
         historyMap.set(1,new Map(new Map())); 
         historyMap.get(1).set("est", new Map());
@@ -40,6 +40,16 @@ export default class MrmVisualizer extends Component {
         this.setState({historyMap});
     }
 
+    handleKeyPress(e) {
+        console.log(e.keyCode); 
+        if(e.keyCode === 37) {
+            this.guess0(); 
+        }
+        else if(e.keyCode === 39) {
+            this.guess1(); 
+        }
+    }
+
     guess0() {
         const {userCorrect,userIncorrect,userHistory,historyMap} = this.state; 
         const botGuess = getBotGuess(0,userHistory,historyMap);
@@ -50,10 +60,12 @@ export default class MrmVisualizer extends Component {
         if(newuserCorrect>newuserIncorrect) document.getElementById("text").innerHTML = "You win!";
         else document.getElementById("text").innerHTML = "You lose!";
         if(newuserCorrect === 30 || newuserIncorrect === 30) this.setState({showResult: 1});
+        else this.setState({showResult: 0})
     }
 
     guess1() {
         const {userCorrect,userIncorrect,userHistory,historyMap} = this.state; 
+        console.log(userIncorrect); 
         const botGuess = getBotGuess(1,userHistory,historyMap);
         const [newuserCorrect,newuserIncorrect] = updateGuesses(1,botGuess,userCorrect,userIncorrect); 
         const newuserHistory = updateHistory(1,userHistory);
@@ -62,12 +74,18 @@ export default class MrmVisualizer extends Component {
         if(newuserCorrect>newuserIncorrect) document.getElementById("text").innerHTML = "You win!";
         else document.getElementById("text").innerHTML = "You lose!";
         if(newuserCorrect === 30 || newuserIncorrect === 30) this.setState({showResult: 1});
+        else this.setState({showResult: 0})
+    }
+
+    restart() {
+        this.setState({userCorrect: 0, userIncorrect: 0, showResult: 0, userHistory: ""});
     }
 
     render() {
         const {userCorrect,userIncorrect,showResult} = this.state; 
         return (
             <>
+            <div tabIndex="-1" onKeyDown={(e) => this.handleKeyPress(e)}> 
             <div className="row-container"> 
                 <div className="black-box">
                 </div>
@@ -96,11 +114,11 @@ export default class MrmVisualizer extends Component {
                     style = {{height: `${userIncorrect*2}px`}}
                 ></div> 
             </div>
-            <div> 
-                userCorrect: {userCorrect} 
+            <div className = "text-container"> 
+                botIncorrect: {userCorrect} 
             </div> 
-            <div>
-                userIncorrect: {userIncorrect}    
+            <div className = "text-container">
+                botCorrect: {userIncorrect}    
             </div> 
             <button onClick={() => this.guess0()}>
                 Guess 0
@@ -110,6 +128,10 @@ export default class MrmVisualizer extends Component {
             </button>
             <div className = "result" style = {{visibility: showResult ? `visible` : `hidden`}} >
                 <p id="text"> </p> 
+                <button onClick={() => this.restart()}>
+                    Restart!
+                </button>
+            </div> 
             </div> 
             </>
         );
