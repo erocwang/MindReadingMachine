@@ -120,10 +120,10 @@ export default class MrmVisualizer extends Component {
             <div className = "text-container">
                 botCorrect: {userIncorrect}    
             </div> 
-            <button onClick={() => this.guess0()}>
+            <button class = "button1" onClick={() => this.guess0()}>
                 Guess 0
             </button>
-            <button onClick={() => this.guess1()}>
+            <button class = "button1" onClick={() => this.guess1()}>
                 Guess 1
             </button>
             <div className = "result" style = {{visibility: showResult ? `visible` : `hidden`}} >
