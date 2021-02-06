@@ -41,7 +41,6 @@ export default class MrmVisualizer extends Component {
     }
 
     handleKeyPress(e) {
-        console.log(e.keyCode); 
         if(e.keyCode === 37) {
             this.guess0(); 
         }
@@ -51,6 +50,7 @@ export default class MrmVisualizer extends Component {
     }
 
     guess0() {
+        if(this.state.showResult) return; 
         const {userCorrect,userIncorrect,userHistory,historyMap} = this.state; 
         const botGuess = getBotGuess(0,userHistory,historyMap);
         const [newuserCorrect,newuserIncorrect] = updateGuesses(0,botGuess,userCorrect,userIncorrect); 
@@ -59,13 +59,13 @@ export default class MrmVisualizer extends Component {
         this.setState({userCorrect:newuserCorrect,userIncorrect:newuserIncorrect,userHistory:newuserHistory,historyMap:newhistoryMap}); 
         if(newuserCorrect>newuserIncorrect) document.getElementById("text").innerHTML = "You win!";
         else document.getElementById("text").innerHTML = "You lose!";
-        if(newuserCorrect === 30 || newuserIncorrect === 30) this.setState({showResult: 1});
+        if(newuserCorrect >= 30 || newuserIncorrect >= 30) this.setState({showResult: 1});
         else this.setState({showResult: 0})
     }
 
     guess1() {
+        if(this.state.showResult) return; 
         const {userCorrect,userIncorrect,userHistory,historyMap} = this.state; 
-        console.log(userIncorrect); 
         const botGuess = getBotGuess(1,userHistory,historyMap);
         const [newuserCorrect,newuserIncorrect] = updateGuesses(1,botGuess,userCorrect,userIncorrect); 
         const newuserHistory = updateHistory(1,userHistory);
@@ -73,7 +73,7 @@ export default class MrmVisualizer extends Component {
         this.setState({userCorrect:newuserCorrect,userIncorrect:newuserIncorrect,userHistory:newuserHistory,historyMap:newhistoryMap});  
         if(newuserCorrect>newuserIncorrect) document.getElementById("text").innerHTML = "You win!";
         else document.getElementById("text").innerHTML = "You lose!";
-        if(newuserCorrect === 30 || newuserIncorrect === 30) this.setState({showResult: 1});
+        if(newuserCorrect >= 30 || newuserIncorrect >= 30) this.setState({showResult: 1});
         else this.setState({showResult: 0})
     }
 
