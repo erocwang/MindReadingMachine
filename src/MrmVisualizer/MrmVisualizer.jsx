@@ -16,7 +16,7 @@ export default class MrmVisualizer extends Component {
     }
 
     componentDidMount() {
-        document.body.style.backgroundColor = "grey"; 
+        //document.body.style.backgroundColor = "grey"; 
         ReactDOM.findDOMNode(document.getElementsByClassName("page-container")[0]).focus(); 
         const historyMap = new Map(); 
         historyMap.set(1,new Map(new Map())); 
