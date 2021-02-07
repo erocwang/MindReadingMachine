@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
 import {getBotGuess} from './MrmAlgo';
 import './MrmVisualizer.css';
 
@@ -16,6 +17,7 @@ export default class MrmVisualizer extends Component {
 
     componentDidMount() {
         document.body.style.backgroundColor = "grey"; 
+        ReactDOM.findDOMNode(document.getElementsByClassName("page-container")[0]).focus(); 
         const historyMap = new Map(); 
         historyMap.set(1,new Map(new Map())); 
         historyMap.get(1).set("est", new Map());
@@ -85,7 +87,7 @@ export default class MrmVisualizer extends Component {
         const {userCorrect,userIncorrect,showResult} = this.state; 
         return (
             <>
-            <div tabIndex="-1" onKeyDown={(e) => this.handleKeyPress(e)}> 
+            <div tabIndex="-1"  onKeyDown={(e) => this.handleKeyPress(e)} className = "page-container"> 
             <div className="row-container"> 
                 <div className="black-box">
                 </div>

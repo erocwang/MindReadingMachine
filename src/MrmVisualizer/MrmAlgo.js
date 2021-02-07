@@ -15,14 +15,16 @@ function getGuessFromHistory(userGuess,userHistory,historyMap) {
     }
     else {
         for(let i=userHistory.length-1; i>=Math.max(0,userHistory.length-5); i--) {
-            var curGuess = Math.round(Math.random()); 
+            var curGuess = Math.round(Math.random());  
             if(historyMap.get(userHistory.length-i).has(userHistory.substring(i,userHistory.length))) {
+                console.log(userHistory.length-i);
+                console.log(userHistory.substring(i,userHistory.length));
                 var zeros = historyMap.get(userHistory.length-i).get(userHistory.substring(i,userHistory.length)).get(0); 
                 var ones = historyMap.get(userHistory.length-i).get(userHistory.substring(i,userHistory.length)).get(1);
                 if(zeros > ones) {
                     curGuess = 0; 
                 }
-                else {
+                else if(zeros < ones) {
                     curGuess = 1; 
                 }
                 if(historyMap.get(userHistory.length-i).get("est").get(0)/Math.max(1,historyMap.get(userHistory.length-i).get("est").get(1)) > top) {

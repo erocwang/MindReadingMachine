@@ -1,3 +1,10 @@
+.page-container {
+    margin: auto; 
+    color: grey; 
+    width: 100%; 
+    height: 100%; 
+}
+
 .row-container {
     margin: auto;
     position: relative; 
